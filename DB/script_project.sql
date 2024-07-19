@@ -33,6 +33,7 @@ CREATE TABLE projects (
 
 CREATE TABLE tasks (
     task_id INT PRIMARY KEY AUTO_INCREMENT,
+    task_name VARCHAR(100) NOT NULL,
     task_description TEXT NOT NULL,
     task_completed BOOLEAN DEFAULT FALSE,
     task_state BOOLEAN DEFAULT TRUE,
@@ -56,7 +57,6 @@ CREATE TABLE users_has_projects (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (project_id) REFERENCES projects(project_id)
 );
-
 
 INSERT INTO roles (role_name) VALUES 
 ('Administrator'),
