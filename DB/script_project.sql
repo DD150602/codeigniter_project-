@@ -23,14 +23,12 @@ CREATE TABLE users (
 
 CREATE TABLE projects (
     project_id INT PRIMARY KEY AUTO_INCREMENT,
-    project_name VARCHAR(100) NOT NULL,  -- Nombre del proyecto
+    project_name VARCHAR(100) NOT NULL,
     project_completed BOOLEAN DEFAULT FALSE,
     project_init_date DATE,
     project_finish_date DATE,
     project_state BOOLEAN DEFAULT TRUE,
-    project_annotation TEXT,
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    project_annotation TEXT
 );
 
 CREATE TABLE tasks (
@@ -38,7 +36,7 @@ CREATE TABLE tasks (
     task_description TEXT NOT NULL,
     task_completed BOOLEAN DEFAULT FALSE,
     task_state BOOLEAN DEFAULT TRUE,
-    task_anotation TEXT,
+    task_annotation TEXT,
     project_id INT,
     FOREIGN KEY (project_id) REFERENCES projects(project_id)
 );
@@ -50,6 +48,15 @@ CREATE TABLE users_has_tasks (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (task_id) REFERENCES tasks(task_id)
 );
+
+CREATE TABLE users_has_projects (
+    user_project_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    project_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (project_id) REFERENCES projects(project_id)
+);
+
 
 INSERT INTO roles (role_name) VALUES 
 ('Administrator'),
