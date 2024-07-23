@@ -135,6 +135,12 @@ class CI_Loader
 	 * @var object
 	 */
 	public $benchmark;
+	/**
+	 * Database class
+	 *
+	 * @var object
+	 */
+	public $db;
 	public $config;
 	public $input;
 	public $lang;
