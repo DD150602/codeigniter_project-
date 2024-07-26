@@ -23,6 +23,8 @@ class UserModel extends CI_Model
   public function createUser($data)
   {
     if (!$this->validateEmail($data['user_email']) && !$this->validateUsername($data['user_username'])) {
+      $hashed_password = password_hash($data['user_password'], PASSWORD_BCRYPT, array('cost' => 10));
+      $data['user_password'] = $hashed_password;
       $this->db->insert('users', $data);
       return true;
     }
