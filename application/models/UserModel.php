@@ -49,6 +49,13 @@ class UserModel extends CI_Model
     }
   }
 
+  public function changePassword($data)
+  {
+    $hashed_password = password_hash($data['user_password'], PASSWORD_BCRYPT, array('cost' => 10));
+    $this->db->where('user_id', $data['user_id']);
+    return $this->db->update('users', array('user_password' => $hashed_password));
+  }
+
   private function validateEmail($email)
   {
     $query = $this->db->get_where('users', array('email' => $email));
