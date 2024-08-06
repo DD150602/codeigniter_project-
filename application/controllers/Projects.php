@@ -8,4 +8,9 @@ class Projects extends CI_Controller
   {
     $this->load->view('Projects_dashboard');
   }
+
+  public function insideProject()
+  {
+    $this->load->view('InsideProject');
+  }
 }
