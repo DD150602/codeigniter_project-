@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="<?php echo base_url('resources/'); ?>Css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('resources/'); ?>Css/sweetalert2.min.css">
   <script src="https://kit.fontawesome.com/d4e9adfcc4.js" crossorigin="anonymous"></script>
 </head>
 <style>
@@ -52,36 +53,36 @@
         <span class="fs-4">Add a new Task</span>
       </a>
       <div class="overflow-scroll h-50" style="max-height: 400px; overflow: hidden;">
-      <hr>
-      <span class="fs-4">Not Complited Tasks</span>
-      <br>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a href="#" class="nav-link link-dark">
-            task 1
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            task 2
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            task 3
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            task 4
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            task 5
-          </a>
-        </li>
-      </ul>
+        <hr>
+        <span class="fs-4">Not Complited Tasks</span>
+        <br>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link link-dark">
+              task 1
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              task 2
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              task 3
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              task 4
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              task 5
+            </a>
+          </li>
+        </ul>
       </div>
       <hr>
       <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ProjectInfoModal">
@@ -181,7 +182,31 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar Proyecto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal to delete -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Delete Item</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="deleteForm">
+            <div class="mb-3">
+              <label for="deleteReason" class="form-label">Reason for deletion</label>
+              <textarea class="form-control" id="deleteReason" rows="3" required></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" onclick="submitDelete()">Delete</button>
         </div>
       </div>
     </div>
@@ -249,8 +274,10 @@
     </div>
   </div>
 
+  <script src="<?php echo base_url('resources/'); ?>JS/views/deleteProject.js"></script>
   <script src="<?php echo base_url('resources/'); ?>JS/popper.min.js"></script>
   <script src="<?php echo base_url('resources/'); ?>JS/bootstrap.min.js"></script>
+  <script src="<?php echo base_url('resources/'); ?>JS/sweetalert2.all.min.js"></script>
 </body>
 
 </html>
