@@ -42,7 +42,7 @@
     </div>
   </nav>
   <main class="container-fluid d-flex p-1 gap-3">
-    <section class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 250px;">
+    <section class="d-flex flex-column flex-shrink-0 p-3 bg-light h-75" style="width: 250px;">
       <span class="fs-4">Project 1</span>
       <hr>
       <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
@@ -51,6 +51,7 @@
         </span>
         <span class="fs-4">Add a new Task</span>
       </a>
+      <div class="overflow-scroll h-50" style="max-height: 400px; overflow: hidden;">
       <hr>
       <span class="fs-4">Not Complited Tasks</span>
       <br>
@@ -81,6 +82,7 @@
           </a>
         </li>
       </ul>
+      </div>
       <hr>
       <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ProjectInfoModal">
         Options
