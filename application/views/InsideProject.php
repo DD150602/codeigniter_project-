@@ -188,19 +188,22 @@
     </div>
   </div>
 
-  <!-- Modal to delete -->
+  <!-- Modal to delete the project -->
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Item</h5>
+          <div class="w-100 d-flex justify-content-center position-relative">
+            <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Dinos porque eliminas el proyecto</h1>
+          </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form id="deleteForm">
-            <div class="mb-3">
-              <label for="deleteReason" class="form-label">Reason for deletion</label>
-              <textarea class="form-control" id="deleteReason" rows="3" required></textarea>
+            <div class="mb-3 text-center">
+              <label for="deleteReason" class="form-label">Estas seguro de que quieres eliminar este proyecto?</label>
+              <p>Esta accion no se puede deshacer.</p>
+              <textarea class="form-control" id="deleteReason" rows="3" placeholder="Escribe el porque" required></textarea>
             </div>
           </form>
         </div>
