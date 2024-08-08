@@ -46,12 +46,12 @@
     <section class="d-flex flex-column flex-shrink-0 p-3 bg-light h-75" style="width: 250px;">
       <span class="fs-4">Project 1</span>
       <hr>
-      <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+      <button class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none btn" data-bs-toggle="modal" data-bs-target="#createTask">
         <span style="font-size: 1.2em;">
           <i class="fa-solid fa-plus"></i>
         </span>
         <span class="fs-4">Add a new Task</span>
-      </a>
+      </button>
       <div class="overflow-scroll h-50" style="max-height: 400px; overflow: hidden;">
         <hr>
         <span class="fs-4">Not Complited Tasks</span>
@@ -210,6 +210,34 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
           <button type="button" class="btn btn-danger" onclick="submitDelete()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal to create a new task -->
+  <div class="modal fade" id="createTask" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Crea una nueva Tarea</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="taskName" class="form-label">Nombre de la tarea</label>
+              <input type="text" class="form-control" id="taskName" placeholder="Escribe el nombre de la tarea">
+            </div>
+            <div class="mb-3">
+              <label for="taskDescription" class="form-label">Descripcion de la Tarea (Opcional)</label>
+              <textarea class="form-control" id="taskDescription" rows="3" placeholder="Escribe una descripcion para la tarea"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear tarea</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
