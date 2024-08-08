@@ -104,7 +104,9 @@
               </span>
             </div>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary me-2">Open Task</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TaskInfoModal">
+              Mostrar detalles
+            </button>
           </div>
         </div>
       </article>
@@ -238,6 +240,65 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal task info -->
+  <div class="modal fade" id="TaskInfoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="TaskInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="w-100 d-flex justify-content-center position-relative">
+            <h1 class="modal-title fs-5" id="TaskInfoModalLabel">Informacion de la Tarea</h1>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="row g-4">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="taskName" class="form-label">Nombre de la Tarea</label>
+                <input type="text" class="form-control" id="taskName" placeholder="Ingrese el nombre de la tarea">
+              </div>
+              <div class="mb-3">
+                <label for="taskDescription" class="form-label">Descripción</label>
+                <textarea class="form-control" id="taskDescription" rows="3" placeholder="Ingrese la descripción de la tarea"></textarea>
+              </div>
+              <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="taskCompleted">
+                <label class="form-check-label" for="taskCompleted">Tarea Finalizada</label>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Enviar</button>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="userSelect" class="form-label">Agregar Usuarios</label>
+                <div class="input-group">
+                  <select class="form-select" id="userSelect">
+                    <option selected disabled>Select a user to add</option>
+                    <option value="1">User 1</option>
+                    <option value="2">User 2</option>
+                    <option value="3">User 3</option>
+                  </select>
+                  <button type="button" class="btn btn-secondary" id="addUserBtn">Añadir</button>
+                </div>
+              </div>
+
+              <!-- Users List -->
+              <div id="userList" class="mb-3">
+                <label class="form-label">Usuarios Añadidos:</label>
+                <ul class="list-group" id="addedUsers">
+                  <!-- Users will be added here -->
+                </ul>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar Tarea</button>
         </div>
       </div>
     </div>
