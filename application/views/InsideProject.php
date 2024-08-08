@@ -298,7 +298,34 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar Tarea</button>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalTask">Eliminar Tarea</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal to delete a task -->
+  <div class="modal fade" id="deleteModalTask" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="w-100 d-flex justify-content-center position-relative">
+            <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Dinos porque eliminas la tarea</h1>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="deleteForm">
+            <div class="mb-3 text-center">
+              <label for="deleteReason" class="form-label">Estas seguro de que quieres eliminar esta tarea?</label>
+              <p>Esta accion no se puede deshacer.</p>
+              <textarea class="form-control" id="deleteReason" rows="3" placeholder="Escribe el porque" required></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" onclick="submitDelete()">Delete</button>
         </div>
       </div>
     </div>
@@ -366,7 +393,6 @@
     </div>
   </div>
 
-  <script src="<?php echo base_url('resources/'); ?>JS/views/deleteProject.js"></script>
   <script src="<?php echo base_url('resources/'); ?>JS/popper.min.js"></script>
   <script src="<?php echo base_url('resources/'); ?>JS/bootstrap.min.js"></script>
   <script src="<?php echo base_url('resources/'); ?>JS/sweetalert2.all.min.js"></script>
