@@ -24,6 +24,7 @@ CREATE TABLE users (
 CREATE TABLE projects (
     project_id INT PRIMARY KEY AUTO_INCREMENT,
     project_name VARCHAR(100) NOT NULL,
+    Project_description TEXT,
     project_completed BOOLEAN DEFAULT FALSE,
     project_init_date DATE,
     project_finish_date DATE,
@@ -34,7 +35,7 @@ CREATE TABLE projects (
 CREATE TABLE tasks (
     task_id INT PRIMARY KEY AUTO_INCREMENT,
     task_name VARCHAR(100) NOT NULL,
-    task_description TEXT NOT NULL,
+    task_description TEXT,
     task_completed BOOLEAN DEFAULT FALSE,
     task_state BOOLEAN DEFAULT TRUE,
     task_annotation TEXT,
