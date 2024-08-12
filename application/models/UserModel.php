@@ -60,7 +60,7 @@ class UserModel extends CI_Model
 
   private function validateEmail($email)
   {
-    $query = $this->db->get_where('users', array('email' => $email));
+    $query = $this->db->get_where('users', array('user_email' => $email));
     if ($query->num_rows() > 0) {
       return true;
     }
@@ -69,7 +69,7 @@ class UserModel extends CI_Model
 
   private function validateUsername($username)
   {
-    $query = $this->db->get_where('users', array('username' => $username));
+    $query = $this->db->get_where('users', array('user_username' => $username));
     if ($query->num_rows() > 0) {
       return true;
     }
