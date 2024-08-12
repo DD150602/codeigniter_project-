@@ -4,6 +4,8 @@
     "Config",
     "Models",
     "Views",
-    "Controllers"
+    "Controllers",
+    "Bussiness Logic",
+    "Test"
   ]
 }
