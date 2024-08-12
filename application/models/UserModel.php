@@ -58,6 +58,25 @@ class UserModel extends CI_Model
     return $this->db->update('users', array('user_password' => $hashed_password));
   }
 
+  public function login($data)
+  {
+    $this->db->where('user_email', $data['user_email']);
+    $query = $this->db->get('users')->row_array();
+
+    if (password_verify($data['user_password'], $query['user_password'])) {
+      return [
+        'success' => true,
+        'username' => $query['user_username'],
+        'role' => $query['user_role']
+      ];
+    } else {
+      return [
+        'success' => false,
+        'message' => 'Contraseña incorrecta'
+      ];
+    }
+  }
+
   private function validateEmail($email)
   {
     $query = $this->db->get_where('users', array('user_email' => $email));
