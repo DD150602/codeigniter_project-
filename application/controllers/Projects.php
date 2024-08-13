@@ -24,4 +24,26 @@ class Projects extends CI_Controller
   {
     $this->load->view('InsideProject');
   }
+
+  public function createProject()
+  {
+    $this->form_validation->set_rules('project_name', 'Project Name', 'required');
+    $this->form_validation->set_rules('project_description', 'Description', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      redirect('Dashboard');
+    } else {
+      $data = [
+        'project_name' => $this->ValidationModel->validateField($this->input->post('project_name')),
+        'project_description' => $this->ValidationModel->validateField($this->input->post('project_description')),
+      ];
+
+      if ($this->ProjectModel->createProject($data)) {
+        $this->session->set_flashdata('success', 'Project created successfully!');
+        redirect('Dashboard');
+      } else {
+        $this->session->set_flashdata('error', 'Project creation failed!');
+      }
+    }
+  }
 }
