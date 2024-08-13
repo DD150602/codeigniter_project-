@@ -7,7 +7,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Pantalla principal</title>
   <link rel="stylesheet" href="<?php echo base_url('resources/'); ?>Css/bootstrap.min.css">
   <script src="https://kit.fontawesome.com/d4e9adfcc4.js" crossorigin="anonymous"></script>
 </head>
@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Welcome</a>
+      <a class="navbar-brand" href="#">Bienvenido</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -32,10 +32,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://via.placeholder.com/40" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>User</strong>
+          <strong><?php echo $this->session->userdata('username'); ?></strong>
         </a>
         <ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser1">
-          <li><button type="button" class="dropdown-item btn" mary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Profile Settings</button></li>
+          <li><button type="button" class="dropdown-item btn" mary" data-bs-toggle="modal" data-bs-target="#UpdateUserInfo">Configuracion de Cuenta</button></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -46,16 +46,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
   </nav>
   <main class="container-fluid d-flex p-1 gap-3">
     <section class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 250px;">
-      <span class="fs-4">Your Projects</span>
+      <span class="fs-4">Tus proyectos</span>
       <hr>
-      <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+      <button class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none btn" data-bs-toggle="modal" data-bs-target="#createProject">
         <span style="font-size: 1.2em;">
           <i class="fa-solid fa-plus"></i>
         </span>
-        <span class="fs-4">Add a new project</span>
-      </a>
+        <span class="fs-4">Agregar un nuevo Proyecto</span>
+      </button>
       <hr>
-      <span class="fs-4">Favorite projects:</span>
+      <span class="fs-4">Proyectos favoritos:</span>
       <br>
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
@@ -63,46 +63,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
             Project 1
           </a>
         </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            Project 2
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            Project 3
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            Project 4
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            Project 5
-          </a>
-        </li>
       </ul>
     </section>
     <section class="border w-100 rounded-4 p-3 row-gap-1 row">
+      <?php if (!empty($projects)): ?>
+        <?php foreach ($projects as $project): ?>
       <article class="container col">
         <div class="card" style="width: 18rem;">
-          <img src="https://cdn.wallpapersafari.com/30/96/yQWvgL.jpg" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Project 1</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary me-2">Go project</a>
+                <h5 class="card-title"><?php echo $project->project_name; ?></h5>
+                <p class="card-text"><?php echo $project->project_description; ?></p>
+                <p class="card-text">Proyecto creado en: <?php echo $project->project_init_date; ?></p>
+                <a href="#" class="btn btn-primary me-2">Ir al proyecto</a>
           </div>
         </div>
       </article>
+        <?php endforeach; ?>
+      <?php else: ?>
       <article class="container col">
-        <div class="card" style="width: 18rem;">
-          <img src="https://cdn.wallpapersafari.com/30/96/yQWvgL.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Project 2</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary me-2">Go project</a>
+          <div class="alert alert-warning" role="alert">
+            No hay proyectos
+          </div>
+        </article>
+      <?php endif; ?>
+    </section>
+  </main>
+
           </div>
         </div>
       </article>

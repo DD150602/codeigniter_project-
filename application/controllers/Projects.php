@@ -8,12 +8,16 @@ class Projects extends CI_Controller
   {
     parent::__construct();
     $this->load->helper('auth');
+    $this->load->model('ProjectModel');
+    $this->load->model('ValidationModel');
   }
 
   public function index()
   {
     check_login();
-    $this->load->view('Projects_dashboard');
+
+    $data['projects'] = $this->ProjectModel->getAllProjectsByUserId($this->session->userdata('id'));
+    $this->load->view('Projects_dashboard', $data);
   }
 
   public function insideProject()
