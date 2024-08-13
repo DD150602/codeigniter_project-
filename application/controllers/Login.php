@@ -49,4 +49,14 @@ class Login extends CI_Controller
 			}
 		}
 	}
+
+	public function logout()
+	{
+		if ($this->session->userdata('success')) {
+			$this->session->sess_destroy();
+			redirect('Login');
+		} else {
+			redirect('Login');
+		}
+	}
 }

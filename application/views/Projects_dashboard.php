@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +39,7 @@
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><?php echo anchor('Login/logout', 'Cerrar Sesion', array('class' => 'dropdown-item')); ?>
         </ul>
       </div>
     </div>
