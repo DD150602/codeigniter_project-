@@ -66,6 +66,7 @@ class UserModel extends CI_Model
     if (password_verify($data['user_password'], $query['user_password'])) {
       return [
         'success' => true,
+        'id' => $query['user_id'],
         'username' => $query['user_username'],
         'role' => $query['user_role']
       ];
