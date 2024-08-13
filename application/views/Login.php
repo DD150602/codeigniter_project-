@@ -17,11 +17,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<div class="w-100 p-3 border rounded" style="max-width: 500px;">
 			<h2 class="text-center mb-3">Bienvenido</h2>
 			<?php if ($this->session->flashdata('success')): ?>
-				<p><?php echo $this->session->flashdata('success'); ?></p>
+				<div class="alert alert-success" role="alert">
+					<h5><?php echo $this->session->flashdata('success'); ?></h5>
+				</div>
 			<?php endif; ?>
 
 			<?php if ($this->session->flashdata('error')): ?>
-				<p><?php echo $this->session->flashdata('error'); ?></p>
+				<div class="alert alert-warning" role="alert">
+					<h5><?php echo $this->session->flashdata('error'); ?></h5>
+				</div>
 			<?php endif; ?>
 			<?php echo form_open('Login'); ?>
 			<div class="mb-3">

@@ -33,10 +33,10 @@ class CreateAccount extends CI_Controller
 			);
 
 			if ($this->UserModel->createUser($userData)) {
-				$this->session->set_flashdata('success', 'Account created successfully!');
+				$this->session->set_flashdata('success', 'Cuenta creada correctamente!');
 				redirect('Login');
 			} else {
-				$this->session->set_flashdata('error', 'Failed to create account, please try again.');
+				$this->session->set_flashdata('error', 'Fallo al intentar crar la cuenta, intentalo de nuevo.');
 			}
 		}
 	}
