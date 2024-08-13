@@ -46,16 +46,16 @@ CREATE TABLE tasks (
 
 CREATE TABLE users_has_tasks (
     user_task_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    task_id INT,
+    user_id INT NOT NULL,
+    task_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (task_id) REFERENCES tasks (task_id)
 );
 
 CREATE TABLE users_has_projects (
     user_project_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    project_id INT,
+    user_id INT NOT NULL,
+    project_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (project_id) REFERENCES projects (project_id)
 );
