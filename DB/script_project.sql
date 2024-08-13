@@ -25,6 +25,7 @@ CREATE TABLE users (
 CREATE TABLE projects (
     project_id INT PRIMARY KEY AUTO_INCREMENT,
     project_name VARCHAR(100) NOT NULL,
+    project_description TEXT,
     project_completed BOOLEAN DEFAULT FALSE,
     project_init_date DATE DEFAULT(CURDATE()),
     project_finish_date DATE,
