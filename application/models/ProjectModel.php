@@ -9,7 +9,7 @@ class ProjectModel extends CI_Model
 
   public function getAllProjectsByUserId($id)
   {
-    $this->db->select('project_name', 'project_init_date');
+    $this->db->select('projects.project_name, projects.project_description, projects.project_id, projects.project_init_date');
     $this->db->from('projects');
     $this->db->join('users_has_projects', 'projects.project_id = users_has_projects.project_id');
     $this->db->join('users', 'users_has_projects.user_id = users.user_id');
