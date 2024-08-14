@@ -20,9 +20,10 @@ class Projects extends CI_Controller
     $this->load->view('Projects_dashboard', $data);
   }
 
-  public function insideProject()
+  public function insideProject($id)
   {
-    $this->load->view('InsideProject');
+    $data['project'] = $this->ProjectModel->getProjectInfo($id);
+    $this->load->view('InsideProject', $data);
   }
 
   public function createProject()
@@ -39,7 +40,6 @@ class Projects extends CI_Controller
       ];
 
       if ($this->ProjectModel->createProject($data)) {
-        $this->session->set_flashdata('success', 'Project created successfully!');
         redirect('Dashboard');
       } else {
         $this->session->set_flashdata('error', 'Project creation failed!');

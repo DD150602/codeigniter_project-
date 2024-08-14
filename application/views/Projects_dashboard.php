@@ -39,7 +39,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><?php echo anchor('Login/logout', 'Cerrar Sesion', array('class' => 'dropdown-item')); ?>
+          <li><?php echo anchor('Login/logout', 'Cerrar Sesion', array('class' => 'dropdown-item')); ?></li>
         </ul>
       </div>
     </div>
@@ -74,7 +74,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <h5 class="card-title"><?php echo $project->project_name; ?></h5>
                 <p class="card-text"><?php echo $project->project_description; ?></p>
                 <p class="card-text">Proyecto creado en: <?php echo $project->project_init_date; ?></p>
-                <a href="#" class="btn btn-primary me-2">Ir al proyecto</a>
+                <a href="<?php echo base_url('Project/' . $project->project_id); ?>" class="btn btn-primary">Go to project</a>
               </div>
             </div>
           </article>

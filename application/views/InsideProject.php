@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Proyecto: <?php echo isset($project->project_name) ? $project->project_name : 'Project Not Found'; ?></title>
   <link rel="stylesheet" href="<?php echo base_url('resources/'); ?>Css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url('resources/'); ?>Css/sweetalert2.min.css">
   <script src="https://kit.fontawesome.com/d4e9adfcc4.js" crossorigin="anonymous"></script>
@@ -21,7 +21,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Project 1</a>
+      <a class="navbar-brand" href="<?php echo site_url('Dashboard'); ?>">Otros Proyectos</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,21 +30,21 @@
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://via.placeholder.com/40" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>User</strong>
+          <strong><?php echo $this->session->userdata('username'); ?></strong>
         </a>
         <ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser1">
-          <li><button type="button" class="dropdown-item btn" data-bs-toggle="modal" data-bs-target="#UserInfoModal">Profile Settings</button></li>
+          <li><button type="button" class="dropdown-item btn" mary" data-bs-toggle="modal" data-bs-target="#UserInfoModal">Configuracion de Cuenta</button></li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><?php echo anchor('Login/logout', 'Cerrar Sesion', array('class' => 'dropdown-item')); ?></li>
         </ul>
       </div>
     </div>
   </nav>
   <main class="container-fluid d-flex p-1 gap-3">
     <section class="d-flex flex-column flex-shrink-0 p-3 bg-light h-75" style="width: 250px;">
-      <span class="fs-4">Project 1</span>
+      <span class="fs-4">Proyecto: <?php echo isset($project->project_name) ? $project->project_name : 'Project Not Found'; ?></span>
       <hr>
       <button class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none btn" data-bs-toggle="modal" data-bs-target="#createTask">
         <span style="font-size: 1.2em;">
@@ -60,26 +60,6 @@
           <li class="nav-item">
             <a href="#" class="nav-link link-dark">
               task 1
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              task 2
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              task 3
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              task 4
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              task 5
             </a>
           </li>
         </ul>
@@ -107,42 +87,6 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TaskInfoModal">
               Mostrar detalles
             </button>
-          </div>
-        </div>
-      </article>
-      <article class="container col">
-        <div class="card" style="width: 18rem;">
-          <img src="https://cdn.wallpapersafari.com/30/96/yQWvgL.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">task 2</h5>
-            <div class=" d-flex gap-2">
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary me-2">Open Task</a>
-          </div>
-        </div>
-      </article>
-      <article class="container col">
-        <div class="card" style="width: 18rem;">
-          <img src="https://cdn.wallpapersafari.com/30/96/yQWvgL.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">task 3</h5>
-            <div class=" d-flex gap-2">
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary me-2">Open Task</a>
           </div>
         </div>
       </article>
@@ -201,11 +145,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="deleteForm">
+          <form id="deleteFormProject">
             <div class="mb-3 text-center">
-              <label for="deleteReason" class="form-label">Estas seguro de que quieres eliminar este proyecto?</label>
+              <label for="deleteReasonProject" class="form-label">Estas seguro de que quieres eliminar este proyecto?</label>
               <p>Esta accion no se puede deshacer.</p>
-              <textarea class="form-control" id="deleteReason" rows="3" placeholder="Escribe el porque" required></textarea>
+              <textarea class="form-control" id="deleteReasonProject" rows="3" placeholder="Escribe el porque" required></textarea>
             </div>
           </form>
         </div>
@@ -228,8 +172,8 @@
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label for="taskName" class="form-label">Nombre de la tarea</label>
-              <input type="text" class="form-control" id="taskName" placeholder="Escribe el nombre de la tarea">
+              <label for="taskNameCreate" class="form-label">Nombre de la tarea</label>
+              <input type="text" class="form-control" id="taskNameCreate" placeholder="Escribe el nombre de la tarea">
             </div>
             <div class="mb-3">
               <label for="taskDescription" class="form-label">Descripcion de la Tarea (Opcional)</label>
@@ -259,12 +203,12 @@
           <form class="row g-4">
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="taskName" class="form-label">Nombre de la Tarea</label>
-                <input type="text" class="form-control" id="taskName" placeholder="Ingrese el nombre de la tarea">
+                <label for="taskNameInfo" class="form-label">Nombre de la Tarea</label>
+                <input type="text" class="form-control" id="taskNameInfo" placeholder="Ingrese el nombre de la tarea">
               </div>
               <div class="mb-3">
-                <label for="taskDescription" class="form-label">Descripción</label>
-                <textarea class="form-control" id="taskDescription" rows="3" placeholder="Ingrese la descripción de la tarea"></textarea>
+                <label for="taskDescriptionInfo" class="form-label">Descripción</label>
+                <textarea class="form-control" id="taskDescriptionInfo" rows="3" placeholder="Ingrese la descripción de la tarea"></textarea>
               </div>
               <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="taskCompleted">
@@ -337,65 +281,76 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="w-100 d-flex justify-content-center position-relative">
-            <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Update User Info</h1>
+            <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Actualiza tus datos</h1>
           </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body d-flex flex-column">
           <div>
-            <form id="user_info_update" action="">
-              <div class="row">
-                <div class="mb-3 col-6">
-                  <label for="user_name" class="form-label">Name</label>
-                  <input type="password" class="form-control" id="user_name" placeholder="Name">
-                </div>
-                <div class="mb-3 col-6">
-                  <label for="user_lastname" class="form-label">Lastname</label>
-                  <input type="password" class="form-control" id="user_lastname" placeholder="Lastname">
-                </div>
-                <div class="mb-3 col-6">
-                  <label for="user_username" class="form-label">username</label>
-                  <input type="password" class="form-control" id="user_username" placeholder="Username">
-                </div>
-                <div class="mb-3 col-6">
-                  <label for="user_email" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="user_email" placeholder="name@example.com">
-                </div>
-                <div class="mb-3 d-flex justify-content-center">
-                  <input class="btn btn-primary" type="submit" value="Update information">
-                </div>
-            </form>
-          </div>
-          <form id="user_password_change">
+            <?php if ($this->session->flashdata('realization')): ?>
+              <div class="alert alert-success" role="alert">
+                <h5><?php echo $this->session->flashdata('success'); ?></h5>
+              </div>
+            <?php endif; ?>
+
+            <?php if ($this->session->flashdata('error')): ?>
+              <div class="alert alert-warning" role="alert">
+                <h5><?php echo $this->session->flashdata('error'); ?></h5>
+              </div>
+            <?php endif; ?>
+            <?php echo form_open('UserController/updateInfo') ?>
             <div class="row">
               <div class="mb-3 col-6">
-                <label for="Old_password" class="form-label">Old password</label>
-                <input type="email" class="form-control" id="Old_password" placeholder="Your old Password">
+                <label for="user_name" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Nombre">
               </div>
               <div class="mb-3 col-6">
-                <label for="user_password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="user_password" placeholder="New Password">
+                <label for="user_lastname" class="form-label">Apellidos</label>
+                <input type="text" class="form-control" id="user_lastname" name="user_lastname" placeholder="Apellidos">
               </div>
               <div class="mb-3 col-6">
-                <label for="user_password_confirm" class="form-label">Confirm your Password</label>
-                <input type="password" class="form-control" id="user_password_confirm" placeholder="Confirm new Password">
+                <label for="user_username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="user_username" name="user_username" placeholder="Username">
+              </div>
+              <div class="mb-3 col-6">
+                <label for="user_email" class="form-label">Correo electronico</label>
+                <input type="email" class="form-control" id="user_email" name="user_email" placeholder="Nombre@ejemplo.com">
+              </div>
+              <div class="mb-3 d-flex justify-content-center">
+                <input class="btn btn-primary" type="submit" value="Actualizar informacion">
+              </div>
+              <?php echo form_close() ?>
+            </div>
+            <?php echo form_open('UserController/updatePassword') ?>
+            <div class="row">
+              <div class="mb-3 col-6">
+                <label for="Old_password" class="form-label">Contraseña anterior</label>
+                <input type="password" class="form-control" id="Old_password" name="Old_password" placeholder="Tu antigua contraseña">
+              </div>
+              <div class="mb-3 col-6">
+                <label for="user_password" class="form-label">Nueva contraseña</label>
+                <input type="password" class="form-control" id="user_password" name="user_password" placeholder="Nueva contraseña">
+              </div>
+              <div class="mb-3 col-6">
+                <label for="user_password_confirm" class="form-label">Confirma tu contraseña</label>
+                <input type="password" class="form-control" id="user_password_confirm" name="user_password_confirm" placeholder="Confirma tu nueva contraseña">
               </div>
             </div>
             <div class="mb-3 d-flex justify-content-center">
-              <input class="btn btn-primary" type="submit" value="Update password">
+              <input class="btn btn-primary" type="submit" value="Actualizar contraseña">
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <?php echo form_close() ?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="<?php echo base_url('resources/'); ?>JS/popper.min.js"></script>
-  <script src="<?php echo base_url('resources/'); ?>JS/bootstrap.min.js"></script>
-  <script src="<?php echo base_url('resources/'); ?>JS/sweetalert2.all.min.js"></script>
+    <script src="<?php echo base_url('resources/'); ?>JS/popper.min.js"></script>
+    <script src="<?php echo base_url('resources/'); ?>JS/bootstrap.min.js"></script>
+    <script src="<?php echo base_url('resources/'); ?>JS/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

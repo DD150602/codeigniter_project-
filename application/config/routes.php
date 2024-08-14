@@ -54,3 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['register'] = 'CreateAccount/createAccount';
 $route['Dashboard'] = 'Projects/index';
+$route['Project/(:any)'] = 'Projects/insideProject/$1';
