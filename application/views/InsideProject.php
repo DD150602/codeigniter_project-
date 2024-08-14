@@ -118,29 +118,30 @@
         </div>
         <div class="modal-body">
           <h2>Formulario de Proyecto</h2>
-          <form>
-            <div class="mb-3">
-              <label for="projectName" class="form-label">Nombre del Proyecto</label>
-              <input type="text" class="form-control" id="projectName" placeholder="Ingrese el nombre del proyecto">
-            </div>
-            <div class="mb-3">
-              <label for="projectDescription" class="form-label">Descripción</label>
-              <textarea class="form-control" id="projectDescription" rows="3" placeholder="Ingrese la descripción del proyecto"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="creationDate" class="form-label">Fecha de Creación</label>
-              <input type="date" class="form-control" id="creationDate" disabled>
-            </div>
-            <div class="mb-3">
-              <label for="endDate" class="form-label">Fecha de Finalización</label>
-              <input type="date" class="form-control" id="endDate">
-            </div>
-            <div class="form-check mb-3">
-              <input type="checkbox" class="form-check-input" id="projectCompleted">
-              <label class="form-check-label" for="projectCompleted">Proyecto Finalizado</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-          </form>
+          <?php echo form_open('Projects/updateProject') ?>
+          <div class="mb-3">
+            <label for="project_name" class="form-label">Nombre del Proyecto</label>
+            <input type="text" class="form-control" id="project_name" name="project_name" value="<?php echo isset($project->project_name) ? $project->project_name : ''; ?>">
+          </div>
+          <div class="mb-3">
+            <label for="project_description" class="form-label">Descripción</label>
+            <textarea class="form-control" id="project_description" name="project_description" rows="3"><?php echo isset($project->project_description) ? $project->project_description : ''; ?></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="project_init_date" class="form-label">Fecha de Creación</label>
+            <input type="date" class="form-control" id="project_init_date" name="project_init_date" value="<?php echo isset($project->project_init_date) ? $project->project_init_date : ''; ?>" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="project_finish_date" class="form-label">Fecha de Finalización</label>
+            <input type="date" class="form-control" id="project_finish_date" name="project_finish_date" value="<?php echo isset($project->project_finish_date) ? $project->project_finish_date : ''; ?>">
+          </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="project_completed" name="project_completed" <?php echo ($project->project_completed == 1) ? 'checked' : ''; ?>>
+            <label class=" form-check-label" for="project_completed">Proyecto Finalizado</label>
+          </div>
+          <input class="form-control" type="hidden" id="project_id" name="project_id" value="<?php echo isset($project->project_id) ? $project->project_id : 'Project Not Found'; ?>">
+          <button type="submit" class="btn btn-primary">Enviar</button>
+          <?php echo form_close() ?>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar Proyecto</button>

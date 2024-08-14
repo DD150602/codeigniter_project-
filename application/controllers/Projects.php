@@ -49,6 +49,43 @@ class Projects extends CI_Controller
     }
   }
 
+  public function updateProject()
+  {
+
+    $this->form_validation->set_rules('project_name', 'Project Name', 'required');
+    $this->form_validation->set_rules('project_description', 'Description', 'required');
+    $this->form_validation->set_rules('project_init_date', 'Initial date', 'required');
+    $this->form_validation->set_rules('project_finish_date', 'End date');
+    $this->form_validation->set_rules('project_completed', 'Status');
+
+    if ($this->form_validation->run() == FALSE) {
+      redirect('Dashboard');
+    } else {
+      $task_completed = $this->input->post('project_completed') ? 1 : 0;
+      if ($task_completed == 1) {
+        $finish_date = date("Y-m-d");
+      } elseif ($this->input->post('project_finish_date') == '') {
+        $finish_date = NULL;
+      } else {
+        $finish_date = $this->input->post('project_finish_date');
+      }
+      $data = [
+        'project_name' => $this->ValidationModel->validateField($this->input->post('project_name')),
+        'project_description' => $this->ValidationModel->validateField($this->input->post('project_description')),
+        'project_init_date' => $this->ValidationModel->validateField($this->input->post('project_init_date')),
+        'project_finish_date' => $finish_date,
+        'project_completed' => $task_completed,
+        'project_id' => $this->ValidationModel->validateField($this->input->post('project_id'))
+      ];
+
+      if ($this->ProjectModel->updateProject($data)) {
+        redirect("Project/$data[project_id]");
+      } else {
+        $this->session->set_flashdata('error', 'Project update failed!');
+      }
+    }
+  }
+
   public function createTask()
   {
     $this->form_validation->set_rules('task_name', 'Task Name', 'required');
