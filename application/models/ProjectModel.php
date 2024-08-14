@@ -61,12 +61,9 @@ class ProjectModel extends CI_Model
 
   public function disableProject($data)
   {
-    if ($this->db->get_where('projects', array('project_id' => $data['project_id']))->row()->project_state === false) {
-      return false;
-    } else {
-      $changes = array('project_state' => $data['project_state'], 'project_annotation' => $data['project_annotation']);
-      $this->db->where('project_id', $data['project_id']);
-      $this->db->update('projects', $changes);
+    $changes = array('project_state' => $data['project_state'], 'project_annotation' => $data['project_annotation']);
+    $this->db->where('project_id', $data['project_id']);
+    if ($this->db->update('projects', $changes)) {
       return true;
     }
     return false;

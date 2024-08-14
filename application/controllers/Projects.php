@@ -86,6 +86,27 @@ class Projects extends CI_Controller
     }
   }
 
+  public function deleteProject()
+  {
+    $this->form_validation->set_rules('project_annotation', 'Project annotation', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      redirect('Project/' . $this->input->post('project_id'));
+    } else {
+      $data = [
+        'project_state' => false,
+        'project_annotation' => $this->ValidationModel->validateField($this->input->post('project_annotation')),
+        'project_id' => $this->ValidationModel->validateField($this->input->post('project_id'))
+      ];
+
+      if ($this->ProjectModel->disableProject($data)) {
+        redirect('Dashboard');
+      } else {
+        $this->session->set_flashdata('error', 'Project deletion failed!');
+      }
+    }
+  }
+
   public function createTask()
   {
     $this->form_validation->set_rules('task_name', 'Task Name', 'required');

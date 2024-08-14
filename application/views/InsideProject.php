@@ -144,14 +144,14 @@
           <?php echo form_close() ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar Proyecto</button>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProjectModal">Eliminar Proyecto</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Modal to delete the project -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteProjectModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -161,17 +161,15 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="deleteFormProject">
-            <div class="mb-3 text-center">
-              <label for="deleteReasonProject" class="form-label">Estas seguro de que quieres eliminar este proyecto?</label>
-              <p>Esta accion no se puede deshacer.</p>
-              <textarea class="form-control" id="deleteReasonProject" rows="3" placeholder="Escribe el porque" required></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" onclick="submitDelete()">Delete</button>
+          <?php echo form_open('Projects/deleteProject') ?>
+          <div class="mb-3 text-center">
+            <label for="project_annotation" class="form-label">Estas seguro de que quieres eliminar este proyecto?</label>
+            <p>Esta accion no se puede deshacer.</p>
+            <textarea class="form-control" id="project_annotation" name="project_annotation" rows="3" placeholder="Escribe el porque" required></textarea>
+          </div>
+          <input class="form-control" type="hidden" id="project_id" name="project_id" value="<?php echo isset($project->project_id) ? $project->project_id : 'Project Not Found'; ?>">
+          <button type="submit" class="btn btn-danger">Delete</button>
+          <?php echo form_close() ?>
         </div>
       </div>
     </div>
