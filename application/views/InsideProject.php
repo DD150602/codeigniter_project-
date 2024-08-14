@@ -50,11 +50,11 @@
         <span style="font-size: 1.2em;">
           <i class="fa-solid fa-plus"></i>
         </span>
-        <span class="fs-4">Add a new Task</span>
+        <span class="fs-4">Agregar una nueva tarea</span>
       </button>
       <div class="overflow-scroll h-50" style="max-height: 400px; overflow: hidden;">
         <hr>
-        <span class="fs-4">Not Complited Tasks</span>
+        <span class="fs-4">Tareas no completadas</span>
         <br>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
@@ -70,26 +70,41 @@
       </button>
     </section>
     <section class="border w-100 rounded-4 p-3 row-gap-1 row">
-      <article class="container col">
-        <div class="card" style="width: 18rem;">
-          <img src="https://cdn.wallpapersafari.com/30/96/yQWvgL.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">task 1</h5>
-            <div class=" d-flex gap-2">
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
+      <?php if (!empty($tasks)): ?>
+        <?php foreach ($tasks as $task): ?>
+          <article class="container col">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $task->task_name; ?></h5>
+                <div class=" d-flex gap-2">
+                  <span style="font-size: 1.2em;">
+                    <i class="fa-solid fa-user"></i>
+                  </span>
+                  <span style="font-size: 1.2em;">
+                    <i class="fa-solid fa-user"></i>
+                  </span>
+                </div>
+                <p class="card-text"><?php echo $task->task_description; ?></p>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="task_completed_<?php echo $task->task_id; ?>" name="task_completed_<?php echo $task->task_id; ?>" <?php echo $task->task_completed ? 'checked' : ''; ?> disabled>
+                  <label class="form-check-label" for="task_completed_<?php echo $task->task_id; ?>">
+                    Completed
+                  </label>
+                </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TaskInfoModal">
+                  Mostrar detalles
+                </button>
+              </div>
             </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TaskInfoModal">
-              Mostrar detalles
-            </button>
+          </article>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <article class="container col">
+          <div class="alert alert-warning" role="alert">
+            No hay tareas en este proyecto
           </div>
-        </div>
-      </article>
+        </article>
+      <?php endif; ?>
     </section>
   </main>
 
@@ -170,20 +185,21 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="taskNameCreate" class="form-label">Nombre de la tarea</label>
-              <input type="text" class="form-control" id="taskNameCreate" placeholder="Escribe el nombre de la tarea">
-            </div>
-            <div class="mb-3">
-              <label for="taskDescription" class="form-label">Descripcion de la Tarea (Opcional)</label>
-              <textarea class="form-control" id="taskDescription" rows="3" placeholder="Escribe una descripcion para la tarea"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Crear tarea</button>
-          </form>
+          <?php echo form_open('Projects/createTask') ?>
+          <div class="mb-3">
+            <label for="task_name" class="form-label">Nombre de la tarea</label>
+            <input type="text" class="form-control" id="task_name" name="task_name" placeholder="Escribe el nombre de la tarea">
+          </div>
+          <div class="mb-3">
+            <label for="task_description" class="form-label">Descripcion de la Tarea (Opcional)</label>
+            <textarea class="form-control" id="task_description" name="task_description" rows="3" placeholder="Escribe una descripcion para la tarea"></textarea>
+          </div>
+          <input class="form-control" type="hidden" id="project_id" name="project_id" value="<?php echo isset($project->project_id) ? $project->project_id : 'Project Not Found'; ?>">
+          <button type="submit" class="btn btn-primary">Crear tarea</button>
+          <?php echo form_close() ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ class Projects extends CI_Controller
     parent::__construct();
     $this->load->helper('auth');
     $this->load->model('ProjectModel');
+    $this->load->model('TaskModel');
     $this->load->model('ValidationModel');
   }
 
@@ -23,6 +24,7 @@ class Projects extends CI_Controller
   public function insideProject($id)
   {
     $data['project'] = $this->ProjectModel->getProjectInfo($id);
+    $data['tasks'] = $this->TaskModel->getAllTasksFromProject($id);
     $this->load->view('InsideProject', $data);
   }
 
@@ -43,6 +45,28 @@ class Projects extends CI_Controller
         redirect('Dashboard');
       } else {
         $this->session->set_flashdata('error', 'Project creation failed!');
+      }
+    }
+  }
+
+  public function createTask()
+  {
+    $this->form_validation->set_rules('task_name', 'Task Name', 'required');
+    $this->form_validation->set_rules('task_description', 'Description', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      redirect('Dashboard');
+    } else {
+      $data = [
+        'task_name' => $this->ValidationModel->validateField($this->input->post('task_name')),
+        'task_description' => $this->ValidationModel->validateField($this->input->post('task_description')),
+        'project_id' => $this->ValidationModel->validateField($this->input->post('project_id'))
+      ];
+
+      if ($this->TaskModel->createTask($data)) {
+        redirect("Project/$data[project_id]");
+      } else {
+        $this->session->set_flashdata('error', 'Task creation failed!');
       }
     }
   }
