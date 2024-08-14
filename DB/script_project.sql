@@ -40,7 +40,7 @@ CREATE TABLE tasks (
     task_completed BOOLEAN DEFAULT FALSE,
     task_state BOOLEAN DEFAULT TRUE,
     task_annotation TEXT,
-    project_id INT,
+    project_id INT NOT NULL,
     FOREIGN KEY (project_id) REFERENCES projects (project_id)
 );
 
