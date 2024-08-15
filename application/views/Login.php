@@ -39,7 +39,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<div class="mb-3 d-flex justify-content-between align-items-center gap-3">
 				<a href="register">Crear cuenta</a>
 				<input class="btn btn-primary" type="submit" value="Iniciar sesión">
-				<a href="#">¿Olvidaste tu contraseña?</a>
+				<a href="ForgotPassword">¿Olvidaste tu contraseña?</a>
 			</div>
 			<php echo form_close(); ?>
 		</div>
