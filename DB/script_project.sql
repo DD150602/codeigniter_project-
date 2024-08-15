@@ -60,6 +60,15 @@ CREATE TABLE users_has_projects (
     FOREIGN KEY (project_id) REFERENCES projects (project_id)
 );
 
+CREATE TABLE password_resets (
+    ps_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    ps_token VARCHAR(255) NOT NULL,
+    ps_created_at DATETIME DEFAULT(CURDATE()) NOT NULL,
+    ps_expired_at DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+);
+
 INSERT INTO roles (role_name) VALUES 
 ('Administrator'),
 ('Project Manager'),
