@@ -8,11 +8,11 @@ if (!function_exists('sendRecoveryEmail')) {
     $CI->load->library('email');
 
     $config = array(
-      'protocol' => 'smtp',
-      'smtp_host' => 'smtp.gmail.com',
-      'smtp_port' => 587,
-      'smtp_user' => 'dylancubos2@gmail.com',
-      'smtp_pass' => 'ondr gmwn awil skrd',
+      'protocol' => '',
+      'smtp_host' => '',
+      'smtp_port' => ,
+      'smtp_user' => '',
+      'smtp_pass' => '',
       'mailtype'  => 'html',
       'charset'   => 'utf-8',
       'newline'   => "\r\n",
