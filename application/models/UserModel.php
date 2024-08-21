@@ -117,26 +117,6 @@ class UserModel extends CI_Model
     return false;
   }
 
-  public function generateToken($email)
-  {
-    $token = bin2hex(random_bytes(50));
-
-    $user = $this->db->get_where('users', array('user_email' => $email))->row();
-
-    $hashed_token = password_hash($token, PASSWORD_BCRYPT, array('cost' => 10));
-    $expiresAt = date("Y-m-d H:i:s", strtotime('+1 hour'));
-
-    $data = array(
-      'user_id' => $user->user_id,
-      'ps_token' => $hashed_token,
-      'ps_expired_at' => $expiresAt
-    );
-
-    $this->db->insert('password_resets', $data);
-
-    return $token;
-  }
-
   private function validateUsername($username)
   {
     $query = $this->db->get_where('users', array('user_username' => $username));

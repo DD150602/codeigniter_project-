@@ -22,7 +22,7 @@ if (!function_exists('sendRecoveryEmail')) {
     $CI->email->from('dylancubos2@gmail.com', 'Dylan Delgado');
     $CI->email->to($email);
     $CI->email->subject('Password Recovery');
-    $CI->email->message("Click this link to recover your password: " . base_url("RecoverPassword/recoverPassword"));
+    $CI->email->message("Click this link to recover your password: " . base_url("RecoverPassword/recoverPassword?token=" . $token));
 
     $CI->email->send();
   }
