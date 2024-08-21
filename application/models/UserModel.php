@@ -1,5 +1,7 @@
 <?php
 
+defined('BASEPATH') or exit('No direct script access allowed');
+
 class UserModel extends CI_Model
 {
   public function __construct()
@@ -33,10 +35,34 @@ class UserModel extends CI_Model
 
   public function updateUser($data)
   {
-    if ($this->db->update('users', $data, array('user_id' => $data['user_id']))) {
-      return true;
+    $check_email = $this->db->get_where('users', array('user_email' => $data['user_email']))->row();
+    if (sizeof($check_email) > 0) {
+      return [
+        'update' => false,
+        'email_exists' => true,
+        'message' => 'Este correo ya esta en uso'
+      ];
     }
-    return false;
+
+    $check_username = $this->db->get_where('users', array('user_username' => $data['user_username']))->row();
+    if (sizeof($check_username) > 0) {
+      return [
+        'update' => false,
+        'username_exists' => true,
+        'message' => 'Este nombre de usuario ya existe en la base de datos'
+      ];
+    }
+
+    if ($this->db->update('users', $data, array('user_id' => $data['user_id']))) {
+      return [
+        'update' => true,
+        'message' => 'Usuario actualizado correctamente'
+      ];
+    }
+    return [
+      'update' => false,
+      'message' => 'Error al actualizar el usuario'
+    ];
   }
 
   public function disableUser($data)
@@ -55,12 +81,36 @@ class UserModel extends CI_Model
   {
     $hashed_password = password_hash($data['user_password'], PASSWORD_BCRYPT, array('cost' => 10));
     $this->db->where('user_id', $data['user_id']);
-    return $this->db->update('users', array('user_password' => $hashed_password));
+    $this->db->update('users', array('user_password' => $hashed_password));
+    return [
+      'update' => true,
+      'message' => 'Contraseña cambiada correctamente'
+    ];
   }
 
-  private function validateEmail($email)
+  public function login($data)
   {
-    $query = $this->db->get_where('users', array('email' => $email));
+    $this->db->where('user_email', $data['user_email']);
+    $query = $this->db->get('users')->row_array();
+
+    if (password_verify($data['user_password'], $query['user_password'])) {
+      return [
+        'success' => true,
+        'id' => $query['user_id'],
+        'username' => $query['user_username'],
+        'role' => $query['user_role']
+      ];
+    } else {
+      return [
+        'success' => false,
+        'message' => 'Contraseña incorrecta'
+      ];
+    }
+  }
+
+  public function validateEmail($email)
+  {
+    $query = $this->db->get_where('users', array('user_email' => $email));
     if ($query->num_rows() > 0) {
       return true;
     }
@@ -69,7 +119,7 @@ class UserModel extends CI_Model
 
   private function validateUsername($username)
   {
-    $query = $this->db->get_where('users', array('username' => $username));
+    $query = $this->db->get_where('users', array('user_username' => $username));
     if ($query->num_rows() > 0) {
       return true;
     }
