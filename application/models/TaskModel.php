@@ -21,10 +21,28 @@ class TaskModel extends CI_Model
 
   public function createTask($data)
   {
-    if ($this->db->insert('tasks', $data)) {
+    $this->db->trans_start();
+
+    $this->db->insert('tasks', array(
+      'task_name' => $data['task_name'],
+      'task_description' => $data['task_description'],
+      'project_id' => $data['project_id']
+    ));
+
+    $task_id = $this->db->insert_id();
+
+    $this->db->insert('users_has_tasks', array(
+      'user_id' => $this->session->userdata('id'),
+      'task_id' => $task_id
+    ));
+
+    if ($this->db->trans_status() == FALSE) {
+      $this->db->trans_rollback();
+      return false;
+    } else {
+      $this->db->trans_commit();
       return true;
     }
-    return false;
   }
 
   public function updateTask($id, $data)

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Proyecto: <?php echo isset($project->project_name) ? $project->project_name : 'Project Not Found'; ?></title>
   <link rel="stylesheet" href="<?php echo base_url('resources/'); ?>Css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url('resources/'); ?>Css/sweetalert2.min.css">
   <script src="https://kit.fontawesome.com/d4e9adfcc4.js" crossorigin="anonymous"></script>
@@ -21,7 +21,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Project 1</a>
+      <a class="navbar-brand" href="<?php echo site_url('Dashboard'); ?>">Otros Proyectos</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,56 +30,36 @@
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://via.placeholder.com/40" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>User</strong>
+          <strong><?php echo $this->session->userdata('username'); ?></strong>
         </a>
         <ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser1">
-          <li><button type="button" class="dropdown-item btn" data-bs-toggle="modal" data-bs-target="#UserInfoModal">Profile Settings</button></li>
+          <li><button type="button" class="dropdown-item btn" mary" data-bs-toggle="modal" data-bs-target="#UserInfoModal">Configuracion de Cuenta</button></li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><?php echo anchor('Login/logout', 'Cerrar Sesion', array('class' => 'dropdown-item')); ?></li>
         </ul>
       </div>
     </div>
   </nav>
   <main class="container-fluid d-flex p-1 gap-3">
     <section class="d-flex flex-column flex-shrink-0 p-3 bg-light h-75" style="width: 250px;">
-      <span class="fs-4">Project 1</span>
+      <span class="fs-4">Proyecto: <?php echo isset($project->project_name) ? $project->project_name : 'Project Not Found'; ?></span>
       <hr>
       <button class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none btn" data-bs-toggle="modal" data-bs-target="#createTask">
         <span style="font-size: 1.2em;">
           <i class="fa-solid fa-plus"></i>
         </span>
-        <span class="fs-4">Add a new Task</span>
+        <span class="fs-4">Agregar una nueva tarea</span>
       </button>
       <div class="overflow-scroll h-50" style="max-height: 400px; overflow: hidden;">
         <hr>
-        <span class="fs-4">Not Complited Tasks</span>
+        <span class="fs-4">Tareas no completadas</span>
         <br>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
             <a href="#" class="nav-link link-dark">
               task 1
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              task 2
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              task 3
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              task 4
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              task 5
             </a>
           </li>
         </ul>
@@ -90,62 +70,41 @@
       </button>
     </section>
     <section class="border w-100 rounded-4 p-3 row-gap-1 row">
-      <article class="container col">
-        <div class="card" style="width: 18rem;">
-          <img src="https://cdn.wallpapersafari.com/30/96/yQWvgL.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">task 1</h5>
-            <div class=" d-flex gap-2">
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
+      <?php if (!empty($tasks)): ?>
+        <?php foreach ($tasks as $task): ?>
+          <article class="container col">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"><?php echo $task->task_name; ?></h5>
+                <div class=" d-flex gap-2">
+                  <span style="font-size: 1.2em;">
+                    <i class="fa-solid fa-user"></i>
+                  </span>
+                  <span style="font-size: 1.2em;">
+                    <i class="fa-solid fa-user"></i>
+                  </span>
+                </div>
+                <p class="card-text"><?php echo $task->task_description; ?></p>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="task_completed_<?php echo $task->task_id; ?>" name="task_completed_<?php echo $task->task_id; ?>" <?php echo $task->task_completed ? 'checked' : ''; ?> disabled>
+                  <label class="form-check-label" for="task_completed_<?php echo $task->task_id; ?>">
+                    Completed
+                  </label>
+                </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TaskInfoModal">
+                  Mostrar detalles
+                </button>
+              </div>
             </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TaskInfoModal">
-              Mostrar detalles
-            </button>
+          </article>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <article class="container col">
+          <div class="alert alert-warning" role="alert">
+            No hay tareas en este proyecto
           </div>
-        </div>
-      </article>
-      <article class="container col">
-        <div class="card" style="width: 18rem;">
-          <img src="https://cdn.wallpapersafari.com/30/96/yQWvgL.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">task 2</h5>
-            <div class=" d-flex gap-2">
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary me-2">Open Task</a>
-          </div>
-        </div>
-      </article>
-      <article class="container col">
-        <div class="card" style="width: 18rem;">
-          <img src="https://cdn.wallpapersafari.com/30/96/yQWvgL.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">task 3</h5>
-            <div class=" d-flex gap-2">
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-              <span style="font-size: 1.2em;">
-                <i class="fa-solid fa-user"></i>
-              </span>
-            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary me-2">Open Task</a>
-          </div>
-        </div>
-      </article>
+        </article>
+      <?php endif; ?>
     </section>
   </main>
 
@@ -159,39 +118,40 @@
         </div>
         <div class="modal-body">
           <h2>Formulario de Proyecto</h2>
-          <form>
-            <div class="mb-3">
-              <label for="projectName" class="form-label">Nombre del Proyecto</label>
-              <input type="text" class="form-control" id="projectName" placeholder="Ingrese el nombre del proyecto">
-            </div>
-            <div class="mb-3">
-              <label for="projectDescription" class="form-label">Descripción</label>
-              <textarea class="form-control" id="projectDescription" rows="3" placeholder="Ingrese la descripción del proyecto"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="creationDate" class="form-label">Fecha de Creación</label>
-              <input type="date" class="form-control" id="creationDate" disabled>
-            </div>
-            <div class="mb-3">
-              <label for="endDate" class="form-label">Fecha de Finalización</label>
-              <input type="date" class="form-control" id="endDate">
-            </div>
-            <div class="form-check mb-3">
-              <input type="checkbox" class="form-check-input" id="projectCompleted">
-              <label class="form-check-label" for="projectCompleted">Proyecto Finalizado</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-          </form>
+          <?php echo form_open('Projects/updateProject') ?>
+          <div class="mb-3">
+            <label for="project_name" class="form-label">Nombre del Proyecto</label>
+            <input type="text" class="form-control" id="project_name" name="project_name" value="<?php echo isset($project->project_name) ? $project->project_name : ''; ?>">
+          </div>
+          <div class="mb-3">
+            <label for="project_description" class="form-label">Descripción</label>
+            <textarea class="form-control" id="project_description" name="project_description" rows="3"><?php echo isset($project->project_description) ? $project->project_description : ''; ?></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="project_init_date" class="form-label">Fecha de Creación</label>
+            <input type="date" class="form-control" id="project_init_date" name="project_init_date" value="<?php echo isset($project->project_init_date) ? $project->project_init_date : ''; ?>" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="project_finish_date" class="form-label">Fecha de Finalización</label>
+            <input type="date" class="form-control" id="project_finish_date" name="project_finish_date" value="<?php echo isset($project->project_finish_date) ? $project->project_finish_date : ''; ?>">
+          </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="project_completed" name="project_completed" <?php echo ($project->project_completed == 1) ? 'checked' : ''; ?>>
+            <label class=" form-check-label" for="project_completed">Proyecto Finalizado</label>
+          </div>
+          <input class="form-control" type="hidden" id="project_id" name="project_id" value="<?php echo isset($project->project_id) ? $project->project_id : 'Project Not Found'; ?>">
+          <button type="submit" class="btn btn-primary">Enviar</button>
+          <?php echo form_close() ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar Proyecto</button>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProjectModal">Eliminar Proyecto</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Modal to delete the project -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteProjectModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -201,17 +161,15 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="deleteForm">
-            <div class="mb-3 text-center">
-              <label for="deleteReason" class="form-label">Estas seguro de que quieres eliminar este proyecto?</label>
-              <p>Esta accion no se puede deshacer.</p>
-              <textarea class="form-control" id="deleteReason" rows="3" placeholder="Escribe el porque" required></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" onclick="submitDelete()">Delete</button>
+          <?php echo form_open('Projects/deleteProject') ?>
+          <div class="mb-3 text-center">
+            <label for="project_annotation" class="form-label">Estas seguro de que quieres eliminar este proyecto?</label>
+            <p>Esta accion no se puede deshacer.</p>
+            <textarea class="form-control" id="project_annotation" name="project_annotation" rows="3" placeholder="Escribe el porque" required></textarea>
+          </div>
+          <input class="form-control" type="hidden" id="project_id" name="project_id" value="<?php echo isset($project->project_id) ? $project->project_id : 'Project Not Found'; ?>">
+          <button type="submit" class="btn btn-danger">Delete</button>
+          <?php echo form_close() ?>
         </div>
       </div>
     </div>
@@ -226,20 +184,21 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="taskName" class="form-label">Nombre de la tarea</label>
-              <input type="text" class="form-control" id="taskName" placeholder="Escribe el nombre de la tarea">
-            </div>
-            <div class="mb-3">
-              <label for="taskDescription" class="form-label">Descripcion de la Tarea (Opcional)</label>
-              <textarea class="form-control" id="taskDescription" rows="3" placeholder="Escribe una descripcion para la tarea"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Crear tarea</button>
-          </form>
+          <?php echo form_open('Projects/createTask') ?>
+          <div class="mb-3">
+            <label for="task_name" class="form-label">Nombre de la tarea</label>
+            <input type="text" class="form-control" id="task_name" name="task_name" placeholder="Escribe el nombre de la tarea">
+          </div>
+          <div class="mb-3">
+            <label for="task_description" class="form-label">Descripcion de la Tarea (Opcional)</label>
+            <textarea class="form-control" id="task_description" name="task_description" rows="3" placeholder="Escribe una descripcion para la tarea"></textarea>
+          </div>
+          <input class="form-control" type="hidden" id="project_id" name="project_id" value="<?php echo isset($project->project_id) ? $project->project_id : 'Project Not Found'; ?>">
+          <button type="submit" class="btn btn-primary">Crear tarea</button>
+          <?php echo form_close() ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
@@ -259,12 +218,12 @@
           <form class="row g-4">
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="taskName" class="form-label">Nombre de la Tarea</label>
-                <input type="text" class="form-control" id="taskName" placeholder="Ingrese el nombre de la tarea">
+                <label for="taskNameInfo" class="form-label">Nombre de la Tarea</label>
+                <input type="text" class="form-control" id="taskNameInfo" placeholder="Ingrese el nombre de la tarea">
               </div>
               <div class="mb-3">
-                <label for="taskDescription" class="form-label">Descripción</label>
-                <textarea class="form-control" id="taskDescription" rows="3" placeholder="Ingrese la descripción de la tarea"></textarea>
+                <label for="taskDescriptionInfo" class="form-label">Descripción</label>
+                <textarea class="form-control" id="taskDescriptionInfo" rows="3" placeholder="Ingrese la descripción de la tarea"></textarea>
               </div>
               <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="taskCompleted">
@@ -337,65 +296,76 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="w-100 d-flex justify-content-center position-relative">
-            <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Update User Info</h1>
+            <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Actualiza tus datos</h1>
           </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body d-flex flex-column">
           <div>
-            <form id="user_info_update" action="">
-              <div class="row">
-                <div class="mb-3 col-6">
-                  <label for="user_name" class="form-label">Name</label>
-                  <input type="password" class="form-control" id="user_name" placeholder="Name">
-                </div>
-                <div class="mb-3 col-6">
-                  <label for="user_lastname" class="form-label">Lastname</label>
-                  <input type="password" class="form-control" id="user_lastname" placeholder="Lastname">
-                </div>
-                <div class="mb-3 col-6">
-                  <label for="user_username" class="form-label">username</label>
-                  <input type="password" class="form-control" id="user_username" placeholder="Username">
-                </div>
-                <div class="mb-3 col-6">
-                  <label for="user_email" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="user_email" placeholder="name@example.com">
-                </div>
-                <div class="mb-3 d-flex justify-content-center">
-                  <input class="btn btn-primary" type="submit" value="Update information">
-                </div>
-            </form>
-          </div>
-          <form id="user_password_change">
+            <?php if ($this->session->flashdata('realization')): ?>
+              <div class="alert alert-success" role="alert">
+                <h5><?php echo $this->session->flashdata('success'); ?></h5>
+              </div>
+            <?php endif; ?>
+
+            <?php if ($this->session->flashdata('error')): ?>
+              <div class="alert alert-warning" role="alert">
+                <h5><?php echo $this->session->flashdata('error'); ?></h5>
+              </div>
+            <?php endif; ?>
+            <?php echo form_open('UserController/updateInfo') ?>
             <div class="row">
               <div class="mb-3 col-6">
-                <label for="Old_password" class="form-label">Old password</label>
-                <input type="email" class="form-control" id="Old_password" placeholder="Your old Password">
+                <label for="user_name" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Nombre">
               </div>
               <div class="mb-3 col-6">
-                <label for="user_password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="user_password" placeholder="New Password">
+                <label for="user_lastname" class="form-label">Apellidos</label>
+                <input type="text" class="form-control" id="user_lastname" name="user_lastname" placeholder="Apellidos">
               </div>
               <div class="mb-3 col-6">
-                <label for="user_password_confirm" class="form-label">Confirm your Password</label>
-                <input type="password" class="form-control" id="user_password_confirm" placeholder="Confirm new Password">
+                <label for="user_username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="user_username" name="user_username" placeholder="Username">
+              </div>
+              <div class="mb-3 col-6">
+                <label for="user_email" class="form-label">Correo electronico</label>
+                <input type="email" class="form-control" id="user_email" name="user_email" placeholder="Nombre@ejemplo.com">
+              </div>
+              <div class="mb-3 d-flex justify-content-center">
+                <input class="btn btn-primary" type="submit" value="Actualizar informacion">
+              </div>
+              <?php echo form_close() ?>
+            </div>
+            <?php echo form_open('UserController/updatePassword') ?>
+            <div class="row">
+              <div class="mb-3 col-6">
+                <label for="Old_password" class="form-label">Contraseña anterior</label>
+                <input type="password" class="form-control" id="Old_password" name="Old_password" placeholder="Tu antigua contraseña">
+              </div>
+              <div class="mb-3 col-6">
+                <label for="user_password" class="form-label">Nueva contraseña</label>
+                <input type="password" class="form-control" id="user_password" name="user_password" placeholder="Nueva contraseña">
+              </div>
+              <div class="mb-3 col-6">
+                <label for="user_password_confirm" class="form-label">Confirma tu contraseña</label>
+                <input type="password" class="form-control" id="user_password_confirm" name="user_password_confirm" placeholder="Confirma tu nueva contraseña">
               </div>
             </div>
             <div class="mb-3 d-flex justify-content-center">
-              <input class="btn btn-primary" type="submit" value="Update password">
+              <input class="btn btn-primary" type="submit" value="Actualizar contraseña">
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <?php echo form_close() ?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="<?php echo base_url('resources/'); ?>JS/popper.min.js"></script>
-  <script src="<?php echo base_url('resources/'); ?>JS/bootstrap.min.js"></script>
-  <script src="<?php echo base_url('resources/'); ?>JS/sweetalert2.all.min.js"></script>
+    <script src="<?php echo base_url('resources/'); ?>JS/popper.min.js"></script>
+    <script src="<?php echo base_url('resources/'); ?>JS/bootstrap.min.js"></script>
+    <script src="<?php echo base_url('resources/'); ?>JS/sweetalert2.all.min.js"></script>
 </body>
 
 </html>
